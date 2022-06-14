@@ -1,0 +1,139 @@
+% \newtheorem{definition}{Definition}
+% \newtheorem{lemma}{Lemma}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem*{conjecture*}{Conjecture}
+% \newtheorem{problem}{Problem}
+\newtheorem*{problem*}{Problem}
+
+% \newcommand{\eqref}[1]{Equation~(\ref{eq:#1})}
+
+\newcommand{\hint}[1]{({\bf Hint}: {#1})}
+%Put more macros here, as needed.
+\newcommand{\room}{\medskip\ni}
+\newcommand{\brak}[1]{\langle #1 \rangle}
+\newcommand{\bit}{\{0,1\}}
+\newcommand{\zo}{\{0,1\}}
+
+\def\indc{\stackrel{{\tiny{\mathrm{c}}}}{\approx}}
+\def\inds{\stackrel{{\tiny{\mathrm{s}}}}{\approx}}
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\Verify}{\mathrm{Verify}}
+\newcommand{\sample}{\leftarrow}
+\newcommand{\tO}{\tilde{O}}
+\newcommand{\iO}{\mathrm{iO}}
+\newcommand{\PRG}{\mathrm{PRG}}
+\newcommand{\PRF}{\mathrm{PRF}}
+\newcommand{\Gen}{\mathrm{Gen}}
+\newcommand{\Trace}{\mathrm{Trace}}
+\newcommand{\vk}{\mathrm{vk}}
+\newcommand{\mk}{\mathrm{mk}}
+\newcommand{\prog}{\Pi_{\PRF_{\sk}, \PRF_{\Enc}}}
+\newcommand{\ksize}{\mathrm{size_{sk}}}
+\newcommand{\csize}{\mathrm{size_c}}
+\newcommand{\range}{\mathcal{R}}
+\newcommand{\Sign}{\mathrm{Sign}}
+\newcommand{\secp}{\lambda}
+\newcommand{\polylog}{\mathrm{polylog}}
+\newcommand{\zon}{\{0,1\}^n}
+\newcommand{\zod}{\{0,1\}^d}
+
+\newcommand{\ab}{(\alpha,\beta)}
+
+
+\newcommand {\eps} {\varepsilon}
+
+\newcommand{\nin}{\not\in}
+\newcommand{\set}[1]{\{#1\}}
+\renewcommand{\ni}{\noindent}
+\renewcommand{\gets}{\leftarrow}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\assign}{:=}
+
+\newcommand{\AND}{\wedge}
+\newcommand{\OR}{\vee}
+
+\newcommand{\For}{\mbox{\bf For }}
+\newcommand{\To}{\mbox{\bf to }}
+\newcommand{\Do}{\mbox{\bf Do }}
+\newcommand{\If}{\mbox{\bf If }}
+\newcommand{\Then}{\mbox{\bf Then }}
+\newcommand{\Else}{\mbox{\bf Else }}
+\newcommand{\While}{\mbox{\bf While }}
+\newcommand{\Repeat}{\mbox{\bf Repeat }}
+\newcommand{\Until}{\mbox{\bf Until }}
+\newcommand{\Return}{\mbox{\bf Return }}
+
+\newcommand{\Setup}{\mathsf{Setup}}
+\newcommand{\KeyGen}{\mathsf{KeyGen}}
+\newcommand{\Keygen}{\mathsf{Keygen}}
+\newcommand{\Encode}{\mathsf{Encode}}
+\newcommand{\Params}{\mathsf{Params}}
+
+\newcommand{\ReKeyGen}{\mathsf{ReKeyGen}}
+\newcommand{\SimReKeyGen}{\mathsf{SimReKeyGen}}
+\newcommand{\Recode}{\mathsf{Recode}}
+
+\newcommand{\Enc}{\mathsf{Enc}}
+\newcommand{\Dec}{\mathsf{Dec}}
+\newcommand{\MAC}{\mathsf{MAC}}
+\newcommand{\Adv}{\mathsf{Adv}}
+\newcommand{\PE}{\mathsf{PE}}
+\newcommand{\CP}{\mathsf{CP}}
+\newcommand{\E}{\mathsf{E}}
+\newcommand{\D}{\mathsf{D}}
+\newcommand{\dLWE}{\mathsf{dLWE}}
+
+\newcommand{\Ab}{\mathbf{A}}
+\newcommand{\Rb}{\mathbf{R}}
+\newcommand{\eb}{\mathbf{e}}
+\newcommand{\ub}{\mathbf{u}}
+\newcommand{\xb}{\mathbf{x}}
+\renewcommand{\sb}{\mathbf{s}}
+
+\newcommand{\ct}{\mathsf{sk}}
+\newcommand{\ind}{\mathsf{ind}}
+\newcommand{\mpk}{\mathsf{mpk}}
+\newcommand{\msk}{\mathsf{msk}}
+\newcommand{\pp}{\mathsf{pp}}
+\newcommand{\sk}{\mathsf{sk}}
+\newcommand{\pk}{\mathsf{pk}}
+\newcommand{\rk}{\mathsf{rk}}
+\newcommand{\tgt}{\mathsf{tgt}}
+\newcommand{\out}{\mathsf{out}}
+
+
+\newcommand {\A} {\mathcal{A}}
+\newcommand {\K} {\mathcal{K}}
+% \newcommand {\C} {\mathcal{C}}
+\newcommand {\M} {\mathcal{M}}
+\newcommand {\T} {\mathcal{T}}
+% \newcommand {\U} {\mathcal{U}}
+\newcommand {\V} {\mathcal{V}}
+\renewcommand {\S} {\mathcal{S}}
+
+\newcommand {\ZZ} {\mathbb{Z}}
+\newcommand {\FF} {\mathbb{F}}
+\newcommand {\NN} {\mathbb{N}}
+\newcommand {\RR} {\mathbb{R}}
+\newcommand {\GG} {\mathbb{G}}
+
+\def \SD {\mathsf{SD}}
+\def \hinf {H_{\infty}}
+
+\def \poly {\mathsf{poly}}
+\def \negl {\mathsf{negl}}
+
+\def \GroupGen {\mathsf{GroupGen}}
+\def \G {\mathbb{G}}
+
+\def \Commit {\mathsf{Commit}}
+\newcommand {\bool} {\{0,1\}}
+% \newcommand{\eps}{\varepsilon}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\ceil}[1]{\left\lceil{#1}\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{#1}\right\rfloor}
+\newcommand{\inner}[2]{\langle{#1},{#2}\rangle}
+\newcommand{\round}[1]{\left\lceil{#1}\right\rfloor}

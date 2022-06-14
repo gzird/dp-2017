@@ -1,0 +1,183 @@
+\documentclass[LaTeX2e,mathserif,10pt]{beamer}
+
+% **** AUTHOR: Falk-Martin Hoffmann **** %
+% **** E-MAIL: fh2u12@soton.ac.uk   **** %
+
+% --------------- PACKAGE INCLUDE SECTION ----------------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{psfrag}
+\usepackage{tcolorbox}
+% ---------------------- END ----------------------------
+
+% --------------- DEFINTION OF UoS Colour Palettes ---------------------
+% UoS Primary Colour Palette
+\definecolor{sotonMB}{rgb}{0 0.3594 0.5156} % soton marine blue (7469)
+\definecolor{sotonCB}{rgb}{0 0.4844 0.5703} % soton cyan blue (3145)
+\definecolor{sotonLB}{rgb}{0 0.5938 0.7617} % soton light blue (313)
+\definecolor{sotonDG}{rgb}{0.3164 0.3828 0.4336} % soton dark grey (7545)
+\definecolor{sotonGR}{rgb}{0.6367 0.5653 0.4180} % soton green (5777)
+\definecolor{sotonME}{rgb}{0.7305 0.7305 0.7305} % soton metal (877)
+\definecolor{sotonLG}{rgb}{0.6406 0.6797 0.7070} % soton light grey (7543)
+
+% some secondary colors:
+\definecolor{sotonyel}{rgb}{.99999 .70196 .00000} % soton yellow
+\definecolor{sotonora}{rgb}{.99608 .24314 .07843} % soton orange
+\definecolor{sotonred}{rgb}{.94118 .05882 .17255} % soton red
+\definecolor{sotonrus}{rgb}{.67059 .07059 .06275} % soton russet
+\definecolor{sotonbrn}{rgb}{.54118 .25490 .16863} % soton brown
+\definecolor{sotonpnk}{rgb}{.88627 .41176 .62353} % soton pink
+\definecolor{sotonppl}{rgb}{.32549 .12157 .26667} % soton purple
+% ---------------------------- END --------------------------------------
+
+% ---------------- GENERAL LAYOUT SECTION ----------------------------------------
+% Please uncomment the desired layout and comment the other!
+
+%%%-------------- WHITE UoS Layout ---------------------------
+%\setbeamercolor{background canvas}{bg=}
+%\setbeamercolor{button border}{bg=sotonMB, fg=sotonCB}
+%\setbeamercolor{button}{bg=sotonMB, fg=DarkRed}
+%
+%\setbeamercolor{block title}{fg=sotonMB}
+%\setbeamercolor{frametitle}{fg=sotonMB}
+%\setbeamercolor{framesubtitle}{fg=sotonMB}
+%\setbeamercolor{alerted text}{fg=black}
+%\setbeamercolor{normal text}{fg=black}
+%\setbeamercolor{titlelike}{fg=sotonMB}
+%\setbeamercolor{author}{fg=sotonMB}
+%\setbeamercolor{date}{fg=black}
+%\setbeamercolor{item}{fg=sotonMB}
+%\setbeamercolor{caption name}{fg=sotonMB}
+%\setbeamercolor{footline text}{fg=sotonMB}
+%
+%%% logo
+%\newcommand{\putlogoUnit}{\includegraphics[width=3.5cm]{Logos/ISVR_CMYK.eps}} % for ISVR
+%\newcommand{\putlogo}{\includegraphics[width=3.5cm]{Logos/UOS_CMYK.eps}} % for UoS
+%%% end logo
+%
+%\newcommand{\headline}{\color{sotonMB}\rule{0.69\textwidth}{1pt}}
+%\newcommand{\footline}{\color{sotonMB}\rule{\textwidth}{1pt}}
+%%%---------------------- end WHITE UoS Layout ---------------------------
+
+
+%%%-------------- BLUE UoS Layout ---------------------------
+\setbeamertemplate{background canvas}[vertical shading][top=sotonMB,bottom=sotonCB]
+\setbeamertemplate{bibliography item}[text]%
+%\setbeamercolor{background canvas}{bg=}
+\setbeamercolor{button border}{bg=sotonMB, fg=sotonCB}
+\setbeamercolor{button}{bg=sotonMB, fg=DarkRed}
+
+\setbeamercolor{block title}{fg=white}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{framesubtitle}{fg=white}
+\setbeamercolor{alerted text}{fg=white}
+\setbeamercolor{normal text}{fg=white}
+\setbeamercolor{titlelike}{fg=white}
+\setbeamercolor{author}{fg=white}
+\setbeamercolor{date}{fg=white}
+\setbeamercolor{item}{fg=white}
+\setbeamercolor{caption name}{fg=white}
+\setbeamercolor{footline text}{fg=white}
+
+%% logo
+% \newcommand{\putlogoUnit}{\includegraphics[width=3.5cm]{Logos/ISVR_White.eps}} % for ISVR
+% \newcommand{\putlogo}{\includegraphics[width=3.5cm]{Logos/UOS_White.eps}} % for UoS
+\newcommand{\putlogoUnit}{\textbf{College of Computer and Information Science}}
+\newcommand{\putlogo}{\textbf{Northeastern University}} 
+%% end logo
+
+\newcommand{\headline}{\color{white}\rule{0.69\textwidth}{1pt}}
+\newcommand{\footline}{\color{white}\rule{\textwidth}{1pt}}
+%%%---------------------- end BLUE UoS Layout ---------------------------
+% ------------------------------- END GENERAL LAYOUT ------------------------------------------------
+
+
+%%% --------- Definition of the TITLE PAGE ---------------
+\setbeamertemplate{title page}{
+	\vskip30pt
+	\begin{centering}
+		\huge \inserttitle \\ \insertsubtitle 
+		\small{
+			\vskip20pt
+			\insertauthor \\
+			\vskip20pt
+			\insertdate \\
+			}
+	\end{centering}
+}
+%%% ------------------ END --------------------------------
+
+
+% ------------------ PRESENTATION SPECIFIC INFORMATION ----------------------------------------------------------------------------------------------
+\title{hard to get privacy \\ \vspace{.5em} \includegraphics[width=3cm]{laplace}}
+\author[Short Version of Author's name]{Giorgos Zirdelis \\ {\footnotesize
+    giorgos@ccs.neu.edu} }
+\institute[CCIS]{NEU}
+% ----------------------------- END -----------------------------------------------------------------------------------------------------------------
+
+% ---------- FURTHER DEFINITIONS --------------
+\setlength{\unitlength}{1cm}
+\beamertemplatenavigationsymbolsempty % uncomment this line if you want the navigation bar
+
+% Set link to general graphics folder
+\graphicspath{{./Graphics/}}
+% --------------- END -------------------------
+
+
+%%%%% Show PAGE numbers (not that good)
+\setbeamertemplate{footline}[frame number]
+\addtobeamertemplate{navigation symbols}{}{%
+  \usebeamerfont{footline}%
+  \usebeamercolor[fg]{footline}%
+  \hspace{1em}%
+  \insertframenumber/\inserttotalframenumber
+}
+
+\input{macros.tex}
+
+\begin{document}
+%%% --------- Definition of the HEADLINE FOR THE TITLE PAGE ONLY -----------------------
+\setbeamertemplate{headline}{
+	\vspace{4pt}\hspace{2pt}\putlogoUnit\hfill\putlogo\hspace{3.5mm} % logo on the right
+}
+%%% ------------------ END -------------------------------------------------------------
+
+
+% Generate TITLE PAGE
+\frame{\titlepage}
+\addtocounter{framenumber}{-1} % Do not count the title frame!
+
+
+%%% --------- Definition of the HEADLINE ----------------------------------
+\setbeamertemplate{headline}{
+	\vskip25pt\headline % horizontal line
+	\vskip-21pt\hspace{2pt}\hfill\putlogo\hspace{3.5mm} % logo on the right
+}
+%%% ------------------ END ------------------------------------------------
+
+%%% --------- Definition of the FOOTLINE ----------------------------------
+\setbeamertemplate{footline}{
+	\vskip-10pt\footline\\ % horizontal line
+	\vskip2pt
+	\makebox[123mm]{\hspace{7.5mm}
+	\insertshorttitle
+	\hfill \insertframenumber/\inserttotalframenumber}
+	\vskip4pt
+}
+%%% ------------------ END ------------------------------------------------
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+%%% --------------------- START HERE WITH YOUR SLIDES ----------------------------------
+\section{Slides}
+\include{privacy-pres-main}
+
+\section{Bibliography}
+\begin{frame}[allowframebreaks]
+        \frametitle{Bibliography}
+        \bibliographystyle{alpha}
+        % \nocite{*}
+        \bibliography{privacy-pres.bib}
+\end{frame}
+
+\end{document}

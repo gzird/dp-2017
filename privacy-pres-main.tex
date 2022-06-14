@@ -1,0 +1,327 @@
+\begin{frame}{Cool things we learned in class}{including Chernoff bounds}
+  \begin{itemize}
+    \item Laplace mechanism: $|Q| \approx n^2$,\quad $|X| = n^{\omega(1)}$ 
+    \item Noisy histogram: $|X| \approx n^2$,\quad $|Q| = n^{\omega(1)}$
+    \item PMW: if $|X|,|Q| \in \poly(n)$
+  \end{itemize}
+  \vspace{1em}
+  We require to be \textbf{computationally} efficient
+  \\$\rightarrow$ especially while giving this talk
+\end{frame}
+
+% \begin{frame}{Outline}{Content of this Presentation}
+% 	\begin{enumerate} [<+->]
+% 		\item item 1
+% 		\item item 2
+% 	\end{enumerate}
+% \end{frame}
+
+\begin{frame}{Memories...}{A flashback from the algo class - fa'15}
+  Solving linear programs
+  
+  \begin{itemize}
+  \item Dantzig'47: Simplex method 
+  \item Khachiyan '79: Ellipsoid method ($n^4L$, n vars, L bits)
+  \item ...
+  \end{itemize}
+
+  But...
+  \begin{itemize}
+    \item Simplex is not worst case polynomial time
+    \item Klee-Minty polytope requires exp time
+  \end{itemize}
+  \vspace{1em}
+  Can we ``cook'' hard instances for privacy?
+	\begin{itemize}
+		\item Yes, if you believe in crypto!
+		\item If not, let us know ASAP of your results.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{The Model}
+  \begin{itemize}
+    \item Non-interactive setting
+    \item Fix beforehand a query set $Q$
+    \item Curator sanitizes/privatizes a dataset $X^n$ for all $q \in Q$
+      \begin{itemize}
+      \item Synthetic dataset - Can run my queries, it's a dataset!
+      \item Arbitrary output - Need an evaluator
+      \end{itemize}
+
+    \item Throw away the original data and the curator~\includegraphics[width=0.8cm]{trollface}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hardness for synthetic datasets~\cite{conf/stoc/DworkNRRV09}}
+  (super-strong) Signatures from OWF~\cite{conf/stoc/NaorY89,conf/stoc/Rompel90}
+  \begin{itemize}
+    \item Data universe $X$: pairs (msg, sig) = \fbox{$(m,\sigma)$}
+    \item Query set $Q$: \fbox{$q_{\vk}(m,\sigma) = 1$ iff $\Verify_{vk}(m,\sigma) =
+      1$}
+    \item Items of $Q,X$ are in $\zo^\secp \Longrightarrow$  both $|Q|$, $|X|$
+      have size $2^\secp$.
+    \item Sample a dataset $X^n$ with the \textbf{same} secret-key:
+      \begin{itemize}
+        \item $m \sample \zo^\secp$ 
+        \item $\sigma \sample \Sign(\sk, m)$
+        \item Output $(m, \sigma)$ 
+       \end{itemize}
+    \end{itemize}
+    
+    \vspace{2em}
+    \textbf{Goal:} Release a dataset that preserves some fractional count of
+    the sigs (depending on accuracy) that verify for a key-pair $(\sk,\vk)$.
+  \end{frame}
+
+  \begin{frame}{Hardness for synthetic datasets~\cite{conf/stoc/DworkNRRV09}}{A
+      view of an alleged synthetic dataset $X^m$}
+    \fboxsep=0pt
+    \noindent
+      \begin{minipage}[l]{0.48\linewidth}
+
+        \begin{center}
+          $X^n=$
+          \begin{tabular}{ | c | }
+            \hline
+            $(m_1,\sigma_1)$ \\ \hline
+            $(m_2,\sigma_2)$ \\ \hline
+            $(m_3,\sigma_3)$ \\ \hline
+            $\vdots$ \\ \hline
+            $(m_n,\sigma_n)$ \\ \hline
+          \end{tabular}
+          \end{center}
+        
+      \end{minipage}%
+    \hfill%
+      \begin{minipage}[r]{0.48\linewidth}
+        \begin{center}
+          $X^m=$
+          \begin{tabular}{ | c | }
+            \hline
+            $(m_1,\sigma_1)$? \\ \hline
+            $(m_2,\sigma_2)$? \\ \hline
+            $(m_3,\sigma_3)$? \\ \hline
+            $\vdots$ \\ \hline
+            $(m_m,\sigma_m)$? \\ \hline
+          \end{tabular}
+          \end{center}
+      \end{minipage}
+      \vspace{1em}
+      \begin{itemize}
+        \item Counting query $q(X^n) = \frac{1}{n} \sum_{i=1}^n
+          q_{\vk}(m_i,\sigma_i) = 1$
+          \vspace{1em}
+        \item Counting query $q(X^m) = \frac{1}{m} \sum_{i=1}^m
+          q_{\vk}(m_i,\sigma_i) \approx 1$
+        \vspace{1em}
+        \item Utility $\land$ $(X^n \cap X^m) \neq \emptyset$\quad /OR/\quad
+          forge sigs (efficiently) $\rightarrow$ break crypto++
+        \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Hard-to-sanitize distribution~\cite{conf/stoc/DworkNRRV09}}{A definition}
+  Hard-to-sanitize distibutions on datasets:
+  \begin{itemize}
+  \item Sample a dataset $x$ 
+  \item For all $q \in Q$,
+  \item $\forall$ PPT sanitizers $A$ with output $y=A(x) \Longrightarrow$  PPT adversary $T$ s.t.:
+    \begin{itemize}
+    \item $\Pr[ |q(x) - q(y)| \leq \alpha \quad \land \quad T(y) \cap x = \emptyset] \leq \negl$
+    \item $\Pr [ x_i \in T(y') ] \leq \negl$
+          \\ $y' = A(x')$ and $x_i \not\in x$
+    \end{itemize}
+  \end{itemize}
+
+  In words:
+  \begin{itemize}
+    \item being accurate without leaking elements has negl prob.
+    \item extracting an element that is not in the dataset has negl prob.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Hard-to-sanitize
+    distribution~\cite{conf/stoc/DworkNRRV09}}{Synthetic datasets. A TTS connection}
+  \begin{itemize}
+    \item (super-strong) signatures: $|Q| = \poly$, $|X| = \exp$
+    \item PRFs: $|Q| = \exp$, $|X| = \poly$
+    \item Both assume OWFs
+    \end{itemize}
+
+    \begin{itemize}
+        \item What if $A(x)$ is an arbitrary output?
+        \item Connection to traitor tracing schemes (TTS)~\cite{Chor94tracingtraitors}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Hardness results~\cite{conf/stoc/DworkNRRV09}}
+  \begin{itemize}
+    \item (super-strong) signatures: $|Q| = \poly$, $|X| = \exp$
+    \item PRFs: $|Q| = \exp$, $|X| = \poly$
+    \item Both assume OWFs
+    \end{itemize}
+
+    \begin{itemize}
+        \item What if $A(x)$ is an arbitrary output?
+        \item Connection to traitor tracing schemes (TTS) first
+          defined~\cite{Chor94tracingtraitors}
+    \end{itemize}
+
+    \begin{itemize}
+        \item TTS imply hard-to-sanitize distributions
+        \item Hard-to-sanitize distributions imply TTS (one-shot + up to some parameters)
+     \end{itemize}
+\end{frame}
+
+\begin{frame}{TTS implies hard-to-sanitize
+    distributions~\cite{conf/stoc/DworkNRRV09}}{TTS definition}
+
+  $t$-resilient (private-key) TTS
+  \begin{itemize}
+  \item Consists of $(\Gen, \Enc, \Dec, \Trace)$ 
+  \item $(\Gen, \Enc, \Dec)$ is a semantically secure enc. scheme ($\sk_1,\ldots,\sk_n,\pk$)
+  \item $\leq t$ users arbitraty combine their secret-keys $\longrightarrow$ decoder $D$
+  \item $\Trace(D)$ with black-box access $\Longrightarrow$ trace back at least one user  
+  \end{itemize}
+  Can assume $t=n$.
+\end{frame}
+
+\begin{frame}{TTS implies hard-to-sanitize
+    distributions~\cite{conf/stoc/DworkNRRV09}}{The reduction}
+  \begin{itemize}
+  \item Data universe X = Secret-Keys: $\zo^{\ksize(n,\secp)}$
+  \item Query set     Q = Ciphertexts: $q_c(x_i) = \Dec(c,x_i)$
+        \\(output LSB for counting queries)
+  \item Both     $|Q|, |X| =  \exp(n, \secp)$
+  \item ``Loose'' utility $\alpha < 1/2 \Rightarrow$ $\round{0 \pm \alpha} =0$
+    and $\round{1 \pm \alpha} =1$
+  \end{itemize}
+
+  \begin{itemize}
+  \item Utility $\Rightarrow$ Decoder $\Rightarrow$ Trace $\Rightarrow$ No-privacy
+  % \item Trace $x'_i \not\in x \Rightarrow$ $n-1$ in $x'$ collude $$ Decoder = $x'_i$ and 
+  \item Trace $\rightarrow x'_i \not\in x \Rightarrow$ Decoder = $x'_i$ $\Rightarrow$ Blame
+    innocent user
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{TTS implies hard-to-sanitize
+    distributions~\cite{conf/stoc/DworkNRRV09}}{Instatiate with~\cite{conf/eurocrypt/BonehSW06}}
+  \begin{itemize}
+  \item Secret-Key and Ciphertext $\Rightarrow$ size of X, Q
+  \item Full collusion resilience~\cite{conf/eurocrypt/BonehSW06} 
+  \item $\ksize=O(\secp)$\quad and \quad $\csize=O(\sqrt{n}\secp)$
+  \item $|X| = 2^{\ksize}$ \quad and \quad $|Q| = 2^{\csize}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Smaller TTS parameters~\cite{conf/tcc/KowalczykMUZ16}}{What is an
+    iO scheme?}
+\begin{definition}
+A PPT algorithm iO is an indistinguishability obfuscator for a family of circuits
+$\{C_{\secp}\}$ that satisfies the following properties:
+\begin{itemize}
+\item \textbf{Correctness:} For all $\secp$, $C \in \{C_{\secp}\}$ and $x$
+  \[
+       \Pr_{iO\,\,\textrm{coins}}[ iO(C)(x) = C(x) ] = 1
+  \]
+\item \textbf{Security:} For all $C_0,C_1 \in \{C_{\secp}\}$ such that for all
+  $x$, $C_0(x) = C_1(x)$ and poly sized adversaries $\Adv$,
+  \[
+     | \Pr[ \Adv(iO(C_0(x)) = 1 ] - \Pr[ \Adv(iO(C_1(x)) = 1 ] | \leq \negl(\secp)
+  \]
+\end{itemize}
+\end{definition}
+We note that we are interested only in families of polynomial sized circuits.
+\end{frame}
+
+\begin{frame}{Smaller TTS parameters~\cite{conf/tcc/KowalczykMUZ16}}{What is an
+    iO scheme?}
+  \begin{itemize}
+  \item iO($\cdot$) and iO(C(x)) are efficient (assume C(x) is efficient)
+  \item \textbf{(correctness)} For all C: iO(C(x)) = C(x)
+  \item \textbf{(security)} For all $C_0,C_1$ with $C_0(x)=C_1(x) \Longrightarrow iO(C_0(x)) \indc iO(C_1(x))$
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Smaller TTS parameters~\cite{conf/tcc/KowalczykMUZ16}}{What is an
+    puncturable PRF?}
+  \begin{itemize}
+  \item Allowed to evaluate on all but some ``punctured'' inputs
+  \item ``Punctured'' inputs do not return PRF value
+    \\Still return a pseudorandom value
+  \item Can get them from GGM construction
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Smaller TTS parameters~\cite{conf/tcc/KowalczykMUZ16}}{The old and the new}
+\begin{itemize}
+\item A PRG: $\zo^{\secp/2} \rightarrow \zo^{\secp}$
+\item A puncturable PRF:~~~$\PRF_{\sk}:[n] \rightarrow
+  \zo^{\secp}$
+\item A twice puncturable PRF:~~~$\PRF_{\Enc}:[m] \rightarrow [n]$
+\item An indistinguishability obfuscator iO.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Smaller TTS parameters~\cite{conf/tcc/KowalczykMUZ16}}{Put
+    everything together}
+The scheme works in the following way.
+\begin{itemize}
+\item $\Setup(1^\secp)$.
+  \begin{itemize}
+  \item Sample contrained $\PRF_{\sk}$ and $\PRF_{\Enc}$
+  \item $s_i = \PRF_{sk}(i)$. Let $O \sample iO(\prog)$.
+  \item User's secret-key $\sk_i = (i, s_i, O)$ and the master key $\mk=\PRF_{\Enc}$.
+\end{itemize}
+
+\item $\Enc(j, \mk)$. Output $c \sample \PRF^{-1}_{\Enc}(j)$.
+\item $\Dec(\sk_i, c)$. Output $O(c,i,s_i)$.
+\end{itemize}
+
+\begin{tcolorbox}[colframe=gray,colback=gray!30]
+$\prog(c,i,s)$:
+
+\hspace{1em} If $\PRG(s) \neq \PRG(\PRF_{\sk}(i))$, halt and output $\bot$.
+
+\hspace{1em} Output $\mathbb{I}\{i \leq \PRF_{Enc}(c) \}$.
+\end{tcolorbox}
+\end{frame}
+
+
+\begin{frame}{Smaller TTS parameters~\cite{conf/tcc/KowalczykMUZ16}}{The parameters}
+\begin{itemize}
+\item $|\sk_i| = \log n + \secp +|O| = \poly(\log n + \secp)$ (bits)
+\item $c \in [m] \Rightarrow |c| = \log m \approx \log n^7 = \tO(\log n)$
+\item \fbox{$|X| = \zo^{\poly(\log n + \secp)}$} \qquad \fbox{$|Q| = m\approx n^7 = \poly(\secp)$}
+\item Can do vice-versa
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Open problems from~\cite{conf/tcc/KowalczykMUZ16} and~\cite{conf/tcc/BunZ16}}
+\begin{itemize}
+\item Replace iO with standard assumptions (i.e. LWE)
+  \begin{itemize}
+  \item Contrained \& Contraint Hiding PRFs (LWE~\cite{journals/iacr/BonehKM17,journals/iacr/CanettiC17})
+  \end{itemize}
+\item Reduce degree of $n^7$, i.e. either $|X|$ or $|Q|$. 
+  \begin{itemize}
+  \item VBB gets you $n^3$. 
+  \item Hard as low as $n^{2+o(1)}$ for $|Q|$ or $|X|$? (Laplace, Histogram)
+  \end{itemize}
+\item Hardness results for PAC learning from crypto using ORE
+  \begin{itemize}
+      \item Threshold class. More ``natural'' classes?
+      \item iO, mmaps(functional enc.), NIZKs
+      \item Standard assumptions?
+  \end{itemize}
+\end{itemize}
+\pause
+\begin{center}
+  {\Large Questions?}~\includegraphics[width=0.8cm]{trollface}
+\end{center}
+\end{frame}
